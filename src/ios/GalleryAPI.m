@@ -82,6 +82,7 @@
                           
                           [assets addObject:@{
                                               @"id" : obj.localIdentifier,
+                                              @"sourceType" : [NSNumber numberWithFloat:obj.sourceType],
                                               @"title" : filename,
                                               @"orientation" : @"up",
                                               @"lat" : @4,
