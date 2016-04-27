@@ -79,10 +79,13 @@
                           {
                               path = [[info objectForKey:@"PHImageFileURLKey"] absoluteString];
                           }
+
+                          CIImage *ciimage = [CIImage imageWithData:imageData];
+                          NSString *make = ciimage.properties[@"{TIFF}"][@"Make"];
                           
                           [assets addObject:@{
                                               @"id" : obj.localIdentifier,
-                                              @"sourceType" : [NSNumber numberWithFloat:obj.sourceType],
+                                              @"make" : make != nil ? make : @"",
                                               @"title" : filename,
                                               @"orientation" : @"up",
                                               @"lat" : @4,
