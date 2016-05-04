@@ -58,7 +58,7 @@ public class GalleryAPI extends CordovaPlugin
         }
     }
 
-    public String getPicture(path) {
+    public String getPicture(String path) {
         Bitmap bm = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();  
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);   
