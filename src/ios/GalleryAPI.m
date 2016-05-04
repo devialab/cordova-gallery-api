@@ -8,6 +8,15 @@
 
 @implementation GalleryAPI
 
+- (void) getPicture:(CDVInvokedUrlCommand*)command
+{
+    NSString *imagePath = [command argumentAtIndex:0];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    NSString *byteArray = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:byteArray];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void) getAlbums:(CDVInvokedUrlCommand*)command
 {
     __block NSMutableArray *albums = [[NSMutableArray alloc] init];
