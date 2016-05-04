@@ -19,6 +19,7 @@ public class GalleryAPI extends CordovaPlugin
 {
     public static final String ACTION_GET_MEDIA = "getMedia";
     public static final String ACTION_GET_ALBUMS = "getAlbums";
+    public static final String ACTION_GET_PICTURE = "getPicture";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException
@@ -40,6 +41,14 @@ public class GalleryAPI extends CordovaPlugin
 
                 return true;
             }
+            else if (ACTION_GET_PICTURE.equals(action))
+            {
+                String picture = getPicture(args.getString(0));
+
+                callbackContext.success(picture);
+
+                return true;
+            }
             callbackContext.error("Invalid action");
             return false;
         } catch(Exception e) {
@@ -47,6 +56,14 @@ public class GalleryAPI extends CordovaPlugin
             callbackContext.error(e.getMessage());
             return false;
         }
+    }
+
+    public String getPicture(path) {
+        Bitmap bm = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);   
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
     }
 
     public ArrayOfObjects getBuckets() throws JSONException
