@@ -2,14 +2,18 @@ package com.subitolabs.cordova.galleryapi;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Base64;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +51,14 @@ public class GalleryAPI extends CordovaPlugin
             callbackContext.error(e.getMessage());
             return false;
         }
+    }
+
+    public String getPicture(String path) {
+        Bitmap bm = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] byteArrayImage = baos.toByteArray();
+        return Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
     }
 
     public ArrayOfObjects getBuckets() throws JSONException
